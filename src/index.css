@@ -29,6 +29,47 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #171719;
+}
+
+.container {
+  height: 100%;
+  width: 1200px;
+  margin: auto;
+  background: #1F2023;
+  color: #fff;
+}
+
+header {
+  border-bottom: 2px solid #FF4655;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 40px;
+}
+
+header img {
+  width: 200px;
+  height: auto;
+  display: flex;
+  justify-content: start;
+}
+
+header button {
+  background-color: #FF4655;
+  color: #fff;
+}
+
+.games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+.games img {
+  height: 250px;
+  width: 200px;
+  object-fit: cover;
 }
 
 h1 {
@@ -46,9 +87,6 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
