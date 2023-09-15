@@ -13,12 +13,15 @@ const Home = () => {
 
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
-    const [search, setSearch] = useState('')
+    //Ce state gère la recherche par nom
+    const [search, setSearch] = useState('');
+    //Ce state gère la pagination
+    const [page, setPage] = useState(1)
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get("https://api.rawg.io/api/games?key=ba3800086a4f43178d37e2df957e5a0d&page=1");
+          const response = await axios.get(`http://localhost:3000/games?search=${search}&page=${page}`);
           setData(response.data.results);
           //console.log(data);
           setIsLoading(false);
@@ -28,7 +31,7 @@ const Home = () => {
         }
       };
       fetchData();
-    }, []);
+    }, [search, page]);
 
     const results = []
 
@@ -42,6 +45,11 @@ const Home = () => {
       setSearch(event.target.value)
     }
 
+    const handlePage = () => {
+      setPage(page + 1);
+      console.log(page)
+    }
+
     return isLoading ? (
         <p>Loading ...</p>
     ) : (
@@ -50,6 +58,7 @@ const Home = () => {
         <div className='games-wrapper'>
           <img src={logoTitle} alt="" />
           <input type="text" onChange={handleSearch} />
+          <button onClick={handlePage}>TEST PAGE</button>
           {search ? (
             <h2>Search results for {search}</h2>
           ) : null}
