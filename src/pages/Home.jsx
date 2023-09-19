@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import '../App.css';
 import axios from 'axios';
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 
 //Assets
 import logoTitle from '../assets/logo-title.png'
 
 //Components
 import Header from '../components/Header';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 
@@ -15,15 +16,19 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
     //Ce state gère la recherche par nom
     const [search, setSearch] = useState('');
-    //Ce state gère la pagination
-    const [page, setPage] = useState(1)
+    //Les states suivants gèrent la pagination
+    const [page, setPage] = useState(1);
+    const [count, setCount] = useState();
+
+    let pageSize = 40
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/games?search=${search}&page=${page}`);
+          const response = await axios.get(`http://localhost:3000/games?search=${search}&page=${page}&pageSize=${pageSize}`);
+          setCount(response.data.count)
           setData(response.data.results);
-          //console.log(data);
+          //console.log(count);
           setIsLoading(false);
         } catch (error) {
           console.log(error.message);
@@ -31,21 +36,13 @@ const Home = () => {
         }
       };
       fetchData();
-    }, [search, page]);
-
-    const results = []
-
-    for (let i = 0; i < data.length; i++) {
-        if(data[i].slug.includes(search) || data[i].name.includes(search)) {
-            results.push(data[i])
-        }
-    }
+    }, [search, page, pageSize]);
 
     const handleSearch = (event) => {
       setSearch(event.target.value)
     }
 
-    const handlePage = () => {
+    const handlePageClick = () => {
       setPage(page + 1);
       console.log(page)
     }
@@ -58,20 +55,33 @@ const Home = () => {
         <div className='games-wrapper'>
           <img src={logoTitle} alt="" />
           <input type="text" onChange={handleSearch} />
-          <button onClick={handlePage}>TEST PAGE</button>
           {search ? (
-            <h2>Search results for {search}</h2>
-          ) : null}
+            <p>Search results for {search}</p>
+          ) : <p>Search {count} games</p>}
             <div className="games">
-                {results.map((game, index) => {
+                {data.map((game, index) => {
                     return (
                         <div key={index}>
-                            <img src={game.background_image} alt="" />
-                            <p>{game.name}</p>
+                            <Link to={`/games/${game.id}`}>
+                              <img src={game.background_image} alt="" />
+                              <p>{game.name}</p>
+                            </Link>
                         </div>
                     )
                 })}
             </div>
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={5}
+              pageCount={Math.ceil(count / pageSize)}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+            />
         </div>
       </div>
     )

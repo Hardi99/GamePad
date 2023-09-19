@@ -11,9 +11,9 @@ const Header = ({}) => {
 
     return (
         <header>
-          <img src={logoTitle} alt="" />
+          <img onClick={() => {navigate('/')}} src={logoTitle} alt="" />
           <nav>
-            <a href="">My Collection</a>
+            <a href="/collection">My Collection</a>
               <button onClick={() => {navigate('/login')}}>Login</button>
           </nav>
         </header>)
