@@ -3,8 +3,14 @@ import '../App.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+//Assets
+import { Icon } from '@mui/material';
+import BookmarkBorderSharpIcon from '@mui/icons-material/BookmarkBorderSharp';
+
 //Components
 import Header from '../components/Header';
+
+console.log(BookmarkBorderSharpIcon)
 
 const Game = () => {
 
@@ -35,7 +41,14 @@ const Game = () => {
         <Header />
         <div className='game-description'>
             <p>{data.name}</p>
-            <img src={data.background_image} alt="" />
+            <div>
+              <img src={data.background_image} alt="" />
+              <aside>
+                <p>Saved to Collection</p>
+                <p>Add a review</p>
+                <svg data-testid={BookmarkBorderSharpIcon}></svg>
+              </aside>
+            </div>
         </div>
       </div>
     )
