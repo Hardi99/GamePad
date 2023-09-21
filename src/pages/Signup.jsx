@@ -48,13 +48,13 @@ const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Pers
                     <div>
                         <img src={logo} alt="" />
                         <h2>How it works ?</h2>
-                        <p><PersonOutlineOutlinedIcon /> Log in to your free account to be able to get all features of Gamepad</p>
-                        <p><BookmarkBorderSharpIcon /> Add a game to your collection</p>
-                        <p><CommentOutlinedIcon /> Leave a review for a game</p>
+                        <p>Log in to your free account to be able to get all features of Gamepad</p>
+                        <p>Add a game to your collection</p>
+                        <p>Leave a review for a game</p>
                     </div>
                     <div>
                         <h2>Signup</h2>
-                        <form
+                        <form className='form-login'
                             onSubmit={async e => {
                                 // Empêche le rafraichissement de page à la soumission du formulaire
                                 e.preventDefault();
@@ -71,7 +71,7 @@ const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Pers
                                     //Changement des arguments du axios.post
                                     if (password === checkPassword) {
                                         const response = await axios.post(
-                                            "http://localhost:3000/user/signup",
+                                            "http://localhost:3000/signup",
 
                                             formData,
 
@@ -81,6 +81,7 @@ const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Pers
                                                 "Content-Type": 'multipart/form-data'
                                             }} */
                                         );
+                                        console.log(response)
                                         setRegister(!register);
                                         setData(response.data.results);
                                         //console.log(data);
@@ -146,7 +147,6 @@ const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Pers
                             type='file'
                             placeholder="Add a Photo"
                             name="photo"
-                            value={photo}
                             onChange={(event) => {
                                 setPhoto(event.target.files[0])
                                 console.log(event.target.files[0])

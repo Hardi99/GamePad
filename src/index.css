@@ -168,6 +168,18 @@ main > div:last-child {
   width: calc((100% - 50px) / 2);
 }
 
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-signup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

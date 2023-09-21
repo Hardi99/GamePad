@@ -38,13 +38,13 @@ const Login = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Perso
                     <div>
                         <img src={logo} alt="" />
                         <h2>How it works ?</h2>
-                        <p><PersonOutlineOutlinedIcon /> Log in to your free account to be able to get all features of Gamepad</p>
-                        <p><BookmarkBorderSharpIcon /> Add a game to your collection</p>
-                        <p><CommentOutlinedIcon /> Leave a review for a game</p>
+                        <p>Log in to your free account to be able to get all features of Gamepad</p>
+                        <p>Add a game to your collection</p>
+                        <p>Leave a review for a game</p>
                     </div>
                     <div>
                         <h2>Login</h2>
-                        <form onSubmit={handleSubmit}>
+                        <form className='form-login' onSubmit={handleSubmit}>
                             <input
                             type="text"
                             placeholder="Email"
