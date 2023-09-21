@@ -3,16 +3,10 @@ import '../App.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-//Assets
-import { Icon } from '@mui/material';
-import BookmarkBorderSharpIcon from '@mui/icons-material/BookmarkBorderSharp';
-
 //Components
 import Header from '../components/Header';
 
-console.log(BookmarkBorderSharpIcon)
-
-const Game = () => {
+const Game = ({token}) => {
 
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +17,7 @@ const Game = () => {
       const fetchData = async () => {
         try {
           const response = await axios.get(`http://localhost:3000/games/${id}`);
-          console.log(response.data);
+          //console.log(response.data);
           setData(response.data);
           setIsLoading(false);
         } catch (error) {
@@ -39,16 +33,13 @@ const Game = () => {
     ) : (
       <div className='container'>
         <Header />
+        <p>{data.name}</p>
         <div className='game-description'>
-            <p>{data.name}</p>
-            <div>
-              <img src={data.background_image} alt="" />
-              <aside>
-                <p>Saved to Collection</p>
-                <p>Add a review</p>
-                <svg data-testid={BookmarkBorderSharpIcon}></svg>
-              </aside>
-            </div>
+          <img src={data.background_image} alt="" />
+          <nav>
+            <div className='icon'><span>Save to Collection</span></div>
+            <div className='icon'><span>Add a review</span></div>
+          </nav>
         </div>
       </div>
     )

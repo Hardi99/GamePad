@@ -9,7 +9,7 @@ import logo from '../assets/logo.png'
 //Components
 import Header from '../components/Header';
 
-const Login = ({handleToken}) => {
+const Login = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, PersonOutlineOutlinedIcon}) => {
 
     const [data, setData] = useState([])
     //Ce state gère la recherche par nom
@@ -38,9 +38,9 @@ const Login = ({handleToken}) => {
                     <div>
                         <img src={logo} alt="" />
                         <h2>How it works ?</h2>
-                        <p>Log in to your free account to be able to get all features of Gamepad</p>
-                        <p>Add a game to your collection</p>
-                        <p>Leave a review for a game</p>
+                        <p><PersonOutlineOutlinedIcon /> Log in to your free account to be able to get all features of Gamepad</p>
+                        <p><BookmarkBorderSharpIcon /> Add a game to your collection</p>
+                        <p><CommentOutlinedIcon /> Leave a review for a game</p>
                     </div>
                     <div>
                         <h2>Login</h2>

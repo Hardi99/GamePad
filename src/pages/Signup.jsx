@@ -8,7 +8,7 @@ import logo from '../assets/logo.png'
 //Components
 import Header from '../components/Header';
 
-const Signup = ({handleToken}) => {
+const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, PersonOutlineOutlinedIcon}) => {
 
     const [data, setData] = useState([])
     //Ce state gère la recherche par nom
@@ -31,10 +31,6 @@ const Signup = ({handleToken}) => {
                     checkPassword: checkPassword,
                     photo: photo
             });
-            setRegister(!register);
-            setData(response.data.results);
-            //console.log(data);
-            //console.log(register);
             } else {
                 setErrorMessage('Vos 2 mots de passe ne sont pas identiques !');
             }
@@ -52,9 +48,9 @@ const Signup = ({handleToken}) => {
                     <div>
                         <img src={logo} alt="" />
                         <h2>How it works ?</h2>
-                        <p>Log in to your free account to be able to get all features of Gamepad</p>
-                        <p>Add a game to your collection</p>
-                        <p>Leave a review for a game</p>
+                        <p><PersonOutlineOutlinedIcon /> Log in to your free account to be able to get all features of Gamepad</p>
+                        <p><BookmarkBorderSharpIcon /> Add a game to your collection</p>
+                        <p><CommentOutlinedIcon /> Leave a review for a game</p>
                     </div>
                     <div>
                         <h2>Signup</h2>
@@ -62,7 +58,6 @@ const Signup = ({handleToken}) => {
                             onSubmit={async e => {
                                 // Empêche le rafraichissement de page à la soumission du formulaire
                                 e.preventDefault();
-                                console.log(token)
 
                                 // Dans ce cas précis de formulaire, nous allons envoyer importer un file. Par conséquent il st obligatoire d'utiliser un formData (sans lui, nous ne pourrons pas envoyer d'image)
                                 const formData = new FormData();
@@ -74,19 +69,27 @@ const Signup = ({handleToken}) => {
 
                                 try {
                                     //Changement des arguments du axios.post
-                                    const response = await axios.post(
-                                        "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
+                                    if (password === checkPassword) {
+                                        const response = await axios.post(
+                                            "http://localhost:3000/user/signup",
 
-                                        formData,
+                                            formData,
 
-                                        // L'objet headers sert à s'authentifier auprès du serverur à l'aide du Bearer token
-                                        {headers : {
-                                            Authorization: "Bearer " + token,
-                                            "Content-Type": 'multipart/form-data'
-                                        }}
-                                    );
-                                    //Le stringify convertit le format JSON en string
-                                    console.log(JSON.stringify(response.data))
+                                            // Dans un signup, il n'y a pas de token donc pas besoin d'envoyer le headers en 3ème argument
+                                            /* {headers : {
+                                                Authorization: "Bearer " + token,
+                                                "Content-Type": 'multipart/form-data'
+                                            }} */
+                                        );
+                                        setRegister(!register);
+                                        setData(response.data.results);
+                                        //console.log(data);
+                                        //console.log(register);
+                                        //Le stringify convertit le format JSON en string
+                                        console.log(JSON.stringify(response.data))
+                                        } else {
+                                            setErrorMessage('Vos 2 mots de passe ne sont pas identiques !');
+                                        }
                                 } catch (err) {
                                     console.log(err)
                                     if (err.response.status === 500) {

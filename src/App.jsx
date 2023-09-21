@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import Game from './pages/Game';
 import Favourites from './pages/Favourites';
 import Collection from './pages/Collection';
+import Header from './components/Header';
 
 function App() {
   // State dans lequel je stocke le token. Sa valeur de base sera :
@@ -32,12 +33,12 @@ function App() {
     <Router>
     {/* Je peux passer des props à mes composants */}
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/games/:id' element={<Game />} />
-        <Route path='/login' element={<Login handleToken={handleToken} />} />
+        <Route path='/' element={<Home token={token} />} />
+        <Route path='/games/:id' element={<Game token={token} />} />
+        <Route path='/login' element={<Login token={token} handleToken={handleToken} />} />
         <Route path='/signup' element={<Signup handleToken={handleToken} />} />
-        <Route path='/favourites' element={<Favourites />} />
-        <Route path='/collection' element={<Collection />} />
+        <Route path='/favourites' element={<Favourites token={token} />} />
+        <Route path='/collection' element={<Collection token={token} />} />
       </Routes>
     </Router>
   )

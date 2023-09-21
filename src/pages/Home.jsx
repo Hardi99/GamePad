@@ -54,7 +54,9 @@ const Home = () => {
         <Header />
         <div className='games-wrapper'>
           <img src={logoTitle} alt="" />
-          <input type="text" onChange={handleSearch} />
+          <div>
+            <input type="text" placeholder='Search for a game...' onChange={handleSearch} />
+          </div>
           {search ? (
             <p>Search results for {search}</p>
           ) : <p>Search {count} games</p>}

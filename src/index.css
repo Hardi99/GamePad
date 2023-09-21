@@ -58,6 +58,7 @@ header img {
   height: auto;
   display: flex;
   justify-content: start;
+  cursor: pointer;
 }
 
 /* HOME */
@@ -143,6 +144,28 @@ main > div:last-child {
   width: 565px;
   height: 354px;;
   object-fit: cover;
+}
+
+.game-description, .game-description nav {
+  display: flex;
+  gap: 20px;
+}
+
+.game-description {
+  padding: 2.5rem;
+}
+
+.game-description nav {
+  display: flex;
+  height: calc((100% - 50px) / 6);
+}
+
+.icon {
+  padding: 5px;
+  border-radius: 8px;
+  display: flex;
+  border: 1px solid #fff;
+  width: calc((100% - 50px) / 2);
 }
 
 @media (prefers-color-scheme: light) {
