@@ -8,15 +8,15 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Game from './pages/Game';
-import Favourites from './pages/Favourites';
 import Collection from './pages/Collection';
-import Header from './components/Header';
+import Review from './pages/Review';
 
 function App() {
   // State dans lequel je stocke le token. Sa valeur de base sera :
   // - Je je trouve un cookie token, ce cookie
   // - Sinon, null
   const [token, setToken] = useState(Cookies.get("token") || null);
+  const [username, setUsername] = useState(Cookies.get("username") || null);
 
   // Cette fonction permet de stocker le token dans le state et dans les cookies ou supprimer le token dans le state et dans les cookies
   const handleToken = (token) => {
@@ -29,16 +29,27 @@ function App() {
     }
   };
 
+  // Cette fonction permet de stocker le token dans le state et dans les cookies ou supprimer le token dans le state et dans les cookies
+  const handleProfileName = (username) => {
+    if (username) {
+      Cookies.set("username", username, { expires: 15 });
+      setUsername(username);
+    } else {
+      Cookies.remove("username");
+      setUsername(null);
+    }
+  };
+
   return (
     <Router>
     {/* Je peux passer des props à mes composants */}
       <Routes>
-        <Route path='/' element={<Home token={token} />} />
+        <Route path='/' element={<Home token={token} handleToken={handleToken} username={username} />} />
         <Route path='/games/:id' element={<Game token={token} />} />
         <Route path='/login' element={<Login token={token} handleToken={handleToken} />} />
         <Route path='/signup' element={<Signup handleToken={handleToken} />} />
-        <Route path='/favourites' element={<Favourites token={token} />} />
-        <Route path='/collection' element={<Collection token={token} />} />
+        <Route path='/collection' element={<Collection token={token} handleToken={handleToken} />} />
+        <Route path='/add-a-review/:id' element={<Review token={token} handleToken={handleToken} />}/>
       </Routes>
     </Router>
   )

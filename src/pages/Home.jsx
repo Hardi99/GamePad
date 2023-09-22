@@ -10,7 +10,7 @@ import logoTitle from '../assets/logo-title.png'
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({username, token, handleToken}) => {
 
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +51,7 @@ const Home = () => {
         <p>Loading ...</p>
     ) : (
       <div className='container'>
-        <Header />
+        <Header username={username} token={token} handleToken={handleToken} />
         <div className='games-wrapper'>
           <img src={logoTitle} alt="" />
           <div>

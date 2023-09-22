@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../App.css';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //Assets
 import logo from '../assets/logo.png'
@@ -9,30 +9,39 @@ import logo from '../assets/logo.png'
 //Components
 import Header from '../components/Header';
 
-const Login = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, PersonOutlineOutlinedIcon}) => {
+const Login = ({handleToken}) => {
 
-    const [data, setData] = useState([])
-    //Ce state gère la recherche par nom
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLogin, setIsLogin] = useState(false)
+
+    // state qui stock l'error et me permet de facilement l'afficher en dessous de mon form lors d'un problème
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
     
-      const handleSubmit = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3000/login`);
-          setData(response.data);
-          handleToken(response.data.token);
-          navigate("/");
-          console.log(data);
-        } catch (error) {
-          console.log(error.message);
-          console.log(error.response);
-        }
-      };
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      setErrorMessage("");
+      try {
+              // remplacez l'url suivante avec l'url de votre back déployé
+              const response = await axios.post("http://localhost:3000/login", {
+                  email,
+                  password,
+              });
+              console.log(response.data);
+              handleToken(response.data.token);
+              //setUsername(response.data.username)
+              setIsLogin(!isLogin);
+              navigate('/');
+      } catch (error) {
+        console.log(error.response.data.error);
+        setErrorMessage(error.response.data.error);
+      }
+    };
 
       return (
         <div className='container'>
-            <Header />
+            <Header handleToken={handleToken} />
             <div className='contact-form'>
                 <main>
                     <div>

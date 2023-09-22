@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../App.css';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ import logo from '../assets/logo.png'
 //Components
 import Header from '../components/Header';
 
-const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, PersonOutlineOutlinedIcon}) => {
+const Signup = () => {
 
     const [data, setData] = useState([])
     //Ce state gère la recherche par nom
@@ -16,29 +16,9 @@ const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Pers
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [checkPassword, setCheckPassword] = useState('');
-    const [photo, setPhoto] = useState();
+    const [avatarUser, setAvatarUser] = useState();
     const [errorMessage, setErrorMessage] = useState('');
     const [register, setRegister] = useState(false)
-    
-      const handleSubmit = async () => {
-        try {
-            // Vérifier que les 2 password sont identiques
-            if (password === checkPassword) {
-                const response = await axios.get(`http://localhost:3000/signup`, {
-                    username: username,
-                    email: email,
-                    password: password,
-                    checkPassword: checkPassword,
-                    photo: photo
-            });
-            } else {
-                setErrorMessage('Vos 2 mots de passe ne sont pas identiques !');
-            }
-        } catch (error) {
-          console.log(error.message);
-          console.log(error.response);
-        }
-      };
 
       return (
         <div className='container'>
@@ -65,7 +45,7 @@ const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Pers
                                 formData.append('email', email);
                                 formData.append('password', password);
                                 formData.append('checkPassword', checkPassword);
-                                formData.append('photo', photo);
+                                formData.append('avatar_user', avatarUser);
 
                                 try {
                                     //Changement des arguments du axios.post
@@ -148,7 +128,7 @@ const Signup = ({handleToken, BookmarkBorderSharpIcon, CommentOutlinedIcon, Pers
                             placeholder="Add a Photo"
                             name="photo"
                             onChange={(event) => {
-                                setPhoto(event.target.files[0])
+                                setAvatarUser(event.target.files[0])
                                 console.log(event.target.files[0])
                             }}
                             />

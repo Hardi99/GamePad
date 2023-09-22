@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import '../App.css';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 //Components
 import Header from '../components/Header';
 
 const Game = ({token}) => {
+
+  const navigate = useNavigate(); // rappel
 
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true);
@@ -32,14 +34,16 @@ const Game = ({token}) => {
         <p>Loading ...</p>
     ) : (
       <div className='container'>
-        <Header />
+        <Header token={token} />
         <p>{data.name}</p>
         <div className='game-description'>
           <img src={data.background_image} alt="" />
-          <nav>
-            <div className='icon'><span>Save to Collection</span></div>
-            <div className='icon'><span>Add a review</span></div>
-          </nav>
+          {token ? (
+            <nav>
+              <div className='icon'><span>Save to Collection</span></div>
+              <div className='icon' onClick={()=>{navigate(`/add-a-review/${id}`)}}><span>Add a review</span></div>
+            </nav>
+          ) : null}
         </div>
       </div>
     )

@@ -46,6 +46,11 @@ body {
 
 /* HEADER */
 
+header nav {
+  display: flex;
+  align-items: center;
+}
+
 header {
   border-bottom: 2px solid #FF4655;
   display: flex;
@@ -174,7 +179,7 @@ main > div:last-child {
   gap: 10px;
 }
 
-.form-signup {
+.form-signup, .form-review {
   display: flex;
   flex-direction: column;
   gap: 10px;
